@@ -8,12 +8,16 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
     && tar -C /usr/local/bin -xzvf dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && rm dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+COPY . /var/www
+
 WORKDIR /var/www
 RUN rm -rf /var/www/html
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN ln -s /var/www/public /var/www/html
+
+
 
 EXPOSE 9000
 #ENTRYPOINT ["dockerize -wait tcp://db:3306 -timeout 20s", "php-fpm"]
