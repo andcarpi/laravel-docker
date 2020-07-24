@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
 
@@ -21,13 +21,17 @@ services:
       - redis
 
   nginx:
-    build: .docker/nginx
+    image: nginx:1.19-alpine
     container_name: nginx
     restart: always
     tty: true
+    environment:
+      - NGINX_HOST=app
+      - NGINX_PORT=9000
     ports:
       - "8000:80"
     volumes:
+      - ./.docker/nginx:/etc/nginx/templates
       - .:/var/www
     networks:
       - app-network
@@ -36,6 +40,7 @@ services:
 
   redis:
     image: redis:alpine
+    container_name: redis
     expose:
       - 6379
     networks:
