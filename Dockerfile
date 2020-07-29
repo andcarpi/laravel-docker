@@ -17,7 +17,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN ln -s /var/www/public /var/www/html
 
-
-
 EXPOSE 9000
 #ENTRYPOINT ["dockerize -wait tcp://db:3306 -timeout 20s", "php-fpm"]
